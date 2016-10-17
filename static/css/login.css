@@ -1,0 +1,43 @@
+html,body{
+    color:#eee;
+}
+
+input:-webkit-autofill {
+-webkit-box-shadow: 0 0 0px 1000px white inset !important;
+-webkit-text-fill-color: #333;
+}
+
+[title]{
+    min-width: 80%;
+    font-size: 80px;
+    font-family: "微软雅黑";
+    text-align: center;
+    margin:50px auto;
+}
+
+[sd-form]{
+     width: 80%;
+     margin:0 auto;
+}
+
+
+.form-line{
+    height: 40px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.form-line input{
+    border: none;
+    background-color: #eee;
+    height: 40px;
+    width: 300px;
+    border-radius: 2px;
+    text-indent: 10px;
+    box-shadow: 0px 0px 1px rgba(255,255,255,.5);
+}
+
+.form-line input[type=submit]{
+    background-color: #26bf3c;
+    color: ghostwhite;
+}
