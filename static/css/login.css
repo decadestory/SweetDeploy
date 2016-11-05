@@ -37,7 +37,8 @@ input:-webkit-autofill {
     box-shadow: 0px 0px 1px rgba(255,255,255,.5);
 }
 
-.form-line input[type=submit]{
+.form-line [submit]{
     background-color: #26bf3c;
     color: ghostwhite;
+    cursor: pointer;
 }

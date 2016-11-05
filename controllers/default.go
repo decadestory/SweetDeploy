@@ -14,12 +14,17 @@ import (
 var installerPath string
 var backupPath string
 var webPath string
+var accSet string
+var pwdSet string
+
 var mutex sync.Mutex
 
 func init() {
 	installerPath = beego.AppConfig.String("appPath::installerPath")
 	backupPath = beego.AppConfig.String("appPath::backupPath")
 	webPath = beego.AppConfig.String("appPath::webPath")
+	accSet = beego.AppConfig.String("login::acc")
+	pwdSet = beego.AppConfig.String("login::pwd")
 
 	mutex.Lock()
 	if !libs.Exist(installerPath) {
@@ -50,8 +55,12 @@ type MainController struct {
 
 //Get 首页
 func (c *MainController) Get() {
-	c.Data["Website"] = "beego.me"
-	c.Data["Email"] = "astaxie@gmail.com"
+	sess := c.GetSession("uname")
+	if sess != accSet {
+		c.TplName = "login.html"
+		return
+	}
+
 	c.TplName = "index.html"
 }
 
@@ -60,19 +69,32 @@ func (c *MainController) Login() {
 	c.TplName = "login.html"
 }
 
+//LoginOut 注销
+func (c *MainController) LoginOut() {
+	c.DelSession("uname")
+	c.TplName = "login.html"
+}
+
 //Submit 登录提交
 func (c *MainController) Submit() {
-	//t := models.DataResult{1, "Success"}
-	//jsons, err := json.Marshal(t)
-	// if err != nil {
-	// 	c.Ctx.WriteString("错误1")
-	// }
-	//c.Ctx.Output.ContentType("application/json")
-	//c.ServeJSON(true)
-	acc := c.GetString("sd-account")
-	pwd := c.GetString("sd-password")
-	//c.Ctx.Redirect(200, "/index")
-	c.Ctx.WriteString(acc + pwd) //string(jsons)
+	acc := c.GetString("sd_account")
+	pwd := c.GetString("sd_password")
+
+	if acc == accSet && pwd == pwdSet {
+		c.SetSession("uname", accSet)
+
+		c.Data["json"] = map[string]string{
+			"error": "0",
+			"data":  "登录成功",
+		}
+		c.ServeJSON()
+	}
+
+	c.Data["json"] = map[string]string{
+		"error": "-1",
+		"data":  "账号或密码错误",
+	}
+	c.ServeJSON()
 }
 
 //Upload 发布
@@ -133,7 +155,7 @@ func (c *MainController) BackUp() {
 	c.ServeJSON()
 }
 
-//Deploy 备份
+//Deploy 发布
 func (c *MainController) Deploy() {
 	libs.CopyDir(installerPath, webPath)
 

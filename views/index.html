@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>SweetDeploy</title>
 	<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
 	<link rel="stylesheet" href="static/css/index.css">
 </head>
@@ -13,15 +13,15 @@
 		<!--<i class="fa fa-first-order" aria-hidden="true"></i>-->
 		<i class="fa fa-themeisle" aria-hidden="true"></i>
 		<span>SweetDeploy<span>
-        <span right><i class="fa fa-cog" aria-hidden="true"></i></span>
+        <span right onclick="signOut();"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
 	</header>
 	<div content>
 		<div>
-			<i class="fa fa-bullhorn" aria-hidden="true"></i> 请选择要发布的更新包！
+			<i class="fa fa-bullhorn" aria-hidden="true"></i> Please Choose a Deploy Package！
 		</div>
 		<div>
-			<div divfile><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> 选择文件</div>
-			<div divfile> 点击请选择zip文件</div>
+			<div divfile><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> Choose File</div>
+			<div divfile> Click To Choose a zip File</div>
 			<form id="form" enctype="multipart/form-data">
 				<input id="file" name="deployFile" type="file" hidden />
 			</form>
@@ -29,7 +29,7 @@
 		<div>
 			<a id="btn-deploy" href="javascript:void(0);">
 				<i id="dicon" class=""></i>
-				<span id="btn-txt">开始发布</span>
+				<span id="btn-txt">Deploy</span>
 			</a>
 		</div>
 		

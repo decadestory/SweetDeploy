@@ -8,7 +8,7 @@ $('input[name=deployFile]').on("change", function () {
 
 $('#btn-deploy').on("click", function () {
     if ($('input[name=deployFile]').val().length === 0) {
-        return alert("请先选择要发布的文件。");
+        return alert("Please Choose a File。");
     }
 
     $('#dicon').addClass("fa fa-refresh fa-spin");
@@ -20,10 +20,10 @@ $('#btn-deploy').on("click", function () {
             if (data.error != 0) {
                 setActionColor("#c74228")
                 $('#dicon').removeClass("fa fa-refresh fa-spin");
-                return $('#btn-txt').text("上传失败")
+                return $('#btn-txt').text("Upload Faild")
             };
 
-            $('#btn-txt').text("正在发布[30%]");
+            $('#btn-txt').text("Deploying[30%]");
             unzip(data.data);
         }
     });
@@ -38,10 +38,10 @@ function unzip(path) {
             if (data.error != 0) {
                 setActionColor("#c74228")
                 $('#dicon').removeClass("fa fa-refresh fa-spin");
-                return $('#btn-txt').text("解压失败")
+                return $('#btn-txt').text("Uncompress Faild")
             };
 
-            $('#btn-txt').text("正在发布[50%]");
+            $('#btn-txt').text("Deploying[50%]");
             backup();
         }
     });
@@ -55,9 +55,9 @@ function backup() {
             if (data.error != 0) {
                 setActionColor("#c74228")
                 $('#dicon').removeClass("fa fa-refresh fa-spin");
-                return $('#btn-txt').text("备份失败")
+                return $('#btn-txt').text("Backup Faild")
             }
-            $('#btn-txt').text("正在发布[75%]");
+            $('#btn-txt').text("Deploying[75%]");
             deploy();
         }
     });
@@ -71,10 +71,10 @@ function deploy() {
             if (data.error != 0) {
                 setActionColor("#c74228")
                 $('#dicon').removeClass("fa fa-refresh fa-spin");
-                return $('#btn-txt').text("发布失败")
+                return $('#btn-txt').text("Faild")
             }
 
-            $('#btn-txt').text("发布成功");
+            $('#btn-txt').text("Success");
             $('#dicon').removeClass("fa fa-refresh fa-spin");
             $('#dicon').addClass("fa fa-check");
             $('input[name=deployFile]').val("");
@@ -88,4 +88,8 @@ function setActionColor(color) {
     $('#btn-deploy').css("background-color", color);
     $('[divfile]:first-child').css("background-color", color);
     $('[divfile]').css("border-color", color);
+}
+
+function signOut(){
+    window.location.href = "/loginOut";
 }
