@@ -93,3 +93,4 @@ function setActionColor(color) {
 function signOut(){
     window.location.href = "/loginOut";
 }
+

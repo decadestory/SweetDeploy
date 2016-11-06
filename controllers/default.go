@@ -25,27 +25,7 @@ func init() {
 	webPath = beego.AppConfig.String("appPath::webPath")
 	accSet = beego.AppConfig.String("login::acc")
 	pwdSet = beego.AppConfig.String("login::pwd")
-
-	mutex.Lock()
-	if !libs.Exist(installerPath) {
-		if os.Mkdir(installerPath, 0777) != nil {
-			return
-		}
-	}
-
-	if !libs.Exist(backupPath) {
-		if os.Mkdir(backupPath, 0777) != nil {
-			return
-		}
-	}
-
-	if !libs.Exist(webPath) {
-		if os.Mkdir(webPath, 0777) != nil {
-			return
-		}
-	}
-	mutex.Unlock()
-
+	initDir()
 }
 
 // MainController ...
@@ -128,6 +108,8 @@ func (c *MainController) Upload() {
 
 //UnZip 解压文件
 func (c *MainController) UnZip() {
+	initDir()
+
 	filePath := c.GetString("path")
 	mutex.Lock()
 	libs.DeleteAllFile(installerPath)
@@ -164,4 +146,24 @@ func (c *MainController) Deploy() {
 		"data":  "发布成功",
 	}
 	c.ServeJSON()
+}
+
+func initDir() {
+	if !libs.Exist(installerPath) {
+		if os.Mkdir(installerPath, 0777) != nil {
+			return
+		}
+	}
+
+	if !libs.Exist(backupPath) {
+		if os.Mkdir(backupPath, 0777) != nil {
+			return
+		}
+	}
+
+	if !libs.Exist(webPath) {
+		if os.Mkdir(webPath, 0777) != nil {
+			return
+		}
+	}
 }
